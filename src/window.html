@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="TimerApp" ng-csp>
 <head>
   <meta charset="UTF-8">
   <title>Focus Pomodora Timer</title>
   <link rel="stylesheet" href="styles/application.css" type="text/css">
 </head>
-<body>
-  <button id="timer">25 minutes</button>
+<body ng-controller="TimerCtrl" ng-cloak>
+  <div class="timers">
+    <input type="text" ng-model="options.workTime"
+                       ng-pattern="/^[1-9]\d*$/"
+                       ng-if="!duration" />
+    <div class="duration" ng-if="duration">{{ duration }}</div>
+  </div><!-- .timers -->
+
+  <div class="actions">
+    <button class="btn btn-primary" ng-click="startTimer()">Work Start</button>
+  </div><!-- .actions -->
+
+  {{ workTime }}
+
   <script src="scripts/application.js"></script>
 </body>
 </html>
