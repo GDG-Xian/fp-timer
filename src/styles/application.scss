@@ -1,9 +1,79 @@
 body {
   text-align: center;
+  background-color: #298786;
+  margin: 0;
+  padding: 60px;
+  font-size: 14px;
 }
 
-#timer {
-  font-size: 16px;
-  padding: 8px 16px;
-  margin-top: 100px;
+.running {
+  animation: breathing 5s infinite;
+}
+
+[ng-cloak] {
+  display: none !important;
+}
+
+.timers {
+  margin-bottom: 20px;
+
+  input[type=text], .duration {
+    border: none;
+    border-bottom: 1px solid #81B5B4;
+    background-color: transparent;
+    font-size: 3em;
+    text-align: center;
+    color: #81B5B4;
+    max-width: 100%;
+    transition: all linear 0.5s;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.ng-invalid {
+      color: #BE9595;
+      border-bottom: 1px solid #BE9595;
+    }
+  }
+
+}
+
+.btn {
+  padding: 8px 20px;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  border: 1px solid #81B5B4;
+  color: #81B5B4;
+  background-color: #1D7170;
+
+  &:hover {
+    background-color: #206968;
+  }
+}
+
+.btn-default {
+  border: 1px solid #81B5B4;
+  color: #81B5B4;
+  background-color: transparent;
+
+  &:hover {
+    background-color: #228180;
+  }
+}
+
+@keyframes breathing {
+  0% {
+    background-color: #298786;
+  }
+
+  60% {
+    background-color: #247978;
+  }
+
+  100% {
+    background-color: #298786;
+  }
 }
