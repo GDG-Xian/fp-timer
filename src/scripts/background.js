@@ -17,6 +17,13 @@ handlers.start = function(msg, port) {
   });
 };
 
+handlers.stop = function(msg, port) {
+  chrome.alarms.clear('timer', function() {
+    port.postMessage({ type: 'stopped', attention: false });
+  });
+};
+
+
 chrome.runtime.onConnect.addListener(function(port) {
   if (port.name != 'fp-timer') return;
 
@@ -25,7 +32,7 @@ chrome.runtime.onConnect.addListener(function(port) {
   });
 
   chrome.alarms.onAlarm.addListener(function(alarm) {
-    port.postMessage({ type: 'stop' });
+    port.postMessage({ type: 'stopped', attention: true });
   });
 });
 

@@ -5,7 +5,9 @@
   <title>Focus Pomodora Timer</title>
   <link rel="stylesheet" href="styles/application.css" type="text/css">
 </head>
-<body ng-controller="TimerCtrl" ng-cloak>
+<body ng-controller="TimerCtrl"
+      ng-class="{ running: duration }"
+      ng-cloak>
   <div class="timers">
     <input type="text" ng-model="options.workTime"
                        ng-pattern="/^[1-9]\d*$/"

@@ -1,6 +1,9 @@
 var angular = require('angular');
 var moment  = require('moment');
 
+// Chrome packaged app does not support pushState.
+window.history.pushState = function() {};
+
 angular
   .module('TimerApp', [])
   .controller('TimerCtrl', function($scope, $timeout) {
@@ -33,11 +36,13 @@ angular
       currentWindow.minimize();
     };
 
-    handlers.stop = function(msg, port) {
+    handlers.stopped = function(msg, port) {
       $timeout.cancel(timer);
       $scope.duration = null;
       scheduledTime = null;
       $scope.$apply();
+
+      if (!attention) return;
 
       var currentWindow = chrome.app.window.current();
       currentWindow.drawAttention();
@@ -52,5 +57,9 @@ angular
     $scope.startTimer = function() {
       var time = parseInt($scope.options.workTime);
       port.postMessage({ type: 'start', time: time });
+    };
+
+    $scope.stopTimer = function() {
+      port.postMessage({ type: 'stop' });
     };
   });
