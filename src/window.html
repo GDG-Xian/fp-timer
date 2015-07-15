@@ -14,7 +14,12 @@
   </div><!-- .timers -->
 
   <div class="actions">
-    <button class="btn btn-primary" ng-click="startTimer()">Work Start</button>
+    <button class="btn btn-primary"
+            ng-click="startTimer()"
+            ng-if="!duration">Start</button>
+    <button class="btn btn-default"
+            ng-click="stopTimer()"
+            ng-if="duration">Stop</button>
   </div><!-- .actions -->
 
   {{ workTime }}
