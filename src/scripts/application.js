@@ -42,11 +42,11 @@ angular
       scheduledTime = null;
       $scope.$apply();
 
-      if (!attention) return;
-
-      var currentWindow = chrome.app.window.current();
-      currentWindow.drawAttention();
-      setTimeout(currentWindow.clearAttention, 8 * 1000);
+      if (msg.attention) {
+        var currentWindow = chrome.app.window.current();
+        currentWindow.drawAttention();
+        setTimeout(currentWindow.clearAttention, 30 * 1000);
+      }
     };
 
     var port = chrome.runtime.connect({ name: "fp-timer" });
