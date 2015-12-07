@@ -22,7 +22,7 @@ angular
       $timeout.cancel(timer);
 
       var duration = scheduledTime - new Date().getTime();
-      $scope.duration = moment.duration(duration).humanize();
+      $scope.duration = moment.duration(duration).humanize({precision: 2});
       $scope.$apply();
 
       timer = $timeout(calculateDuration, 5000);
@@ -57,9 +57,20 @@ angular
     $scope.startTimer = function() {
       var time = parseInt($scope.options.workTime);
       port.postMessage({ type: 'start', time: time });
+
+      chrome.storage.sync.set({ duration: time });
+      console.log('Duration set to ' + time + ' minutes');
     };
 
     $scope.stopTimer = function() {
       port.postMessage({ type: 'stop' });
     };
+
+    chrome.storage.sync.get('duration', function(result) {
+      $scope.$apply(function() {
+        var duration = result.duration || 25;
+        $scope.options.workTime = duration;
+        console.log('Duration set to ' + duration + ' minutes');
+      });
+    });
   });
